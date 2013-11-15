@@ -1,3 +1,4 @@
+var hostname = 'http://einstein.sv.cmu.edu'
 var sn_visualization = sn_visualization || {};
 
 sn_visualization.timeseriesView = (function(){
@@ -53,7 +54,7 @@ sn_visualization.timeseriesView = (function(){
       );
       dataWorkers[deviceURI].worker.postMessage({
         type: "START",
-        url: "http://cmu-sds.herokuapp.com/sensor_readings/"+deviceURI,
+        url: hostname + "/sensor_readings/"+deviceURI,
         init_time: (fetchTime-timeLength*1000),
         update_time: fetchTime
       });
