@@ -11,9 +11,9 @@ var templates_counter = 0;
 var feederCounter = 0;
 
 //object to store all virtual sensors definition and templates definition
-var storageObj = new Object;
-storageObj["VIRTUAL_SENSORS"] = new Object;
-storageObj["SETTINGS"] = new Object;
+var storageObj = {};
+storageObj.VIRTUAL_SENSORS = {};
+storageObj.SETTINGS = {};
 var patternVirtualSensorName = /^[a-z0-9_]{4,}$/i;
 
 //last reading time for each device
@@ -26,7 +26,7 @@ globalDeviceValue = {};
 //global sensor information
 globalSensorInfo = {};
 
-var globalSensorChartsInfo = new Array();
+var globalSensorChartsInfo = {};
 
 
 //mapping between device id and human readable labels
@@ -156,8 +156,9 @@ jsPlumb.bind("ready", function () {
 
     // listen for clicks on connections, and offer to delete connections on click.
     jsPlumb.bind("dblclick", function (conn, originalEvent) {
-        if (confirm("Delete connection?"))
+        if (confirm("Delete connection?")) {
             jsPlumb.detach(conn);
+        }
     });
 
     //jQuery UI for the accordion
@@ -171,10 +172,11 @@ jsPlumb.bind("ready", function () {
 
 function createNewElementInCanvas(type, x, y, data, uuid) {
 
+    var id;
     if (typeof uuid === 'undefined') {
-        var id = createUUID("");
+        id = createUUID("");
     } else {
-        var id = uuid;
+        id = uuid;
     }
 
     switch (type) {
@@ -201,15 +203,15 @@ function createNewElementInCanvas(type, x, y, data, uuid) {
     //create new window and add it to the canvas
     jsPlumb.draggable($('#' + id));
 
-    if (navigator.appVersion.indexOf("MSIE 10") != -1) {
+    if (navigator.appVersion.indexOf("MSIE 10") !== -1) {
         $('#' + id).show(2000).css({ top:y + 'px', left:x + 'px' });
     } else {
         $('#' + id).show(2000).offset({ left:x, top:y });
     }
 
     //create 'output' element if it doesnt exist
-    if ($('#output').length == 0) {
-        if (typeof uuid != 'undefined'){
+    if ($('#output').length === 0) {
+        if (typeof uuid !== 'undefined'){
             createOutputElement(true);
         }else{
             createOutputElement(false);
@@ -233,7 +235,7 @@ function deleteElement(elem, askConfirmation) {
     $("#" + elem.id).remove();
 
     //if no elements in canvas, remove "output" element
-    if ($(".window").length == 0 && $('#output').length > 0) {
+    if ($(".window").length === 0 && $('#output').length > 0) {
         jsPlumb.removeAllEndpoints($('#output'));
         $("#output").remove();
     }
@@ -241,7 +243,7 @@ function deleteElement(elem, askConfirmation) {
 
 function createOutputElement(editingMode) {
     var readOnlyTag = "";
-    if (typeof editingMode != 'undefined' && editingMode == true){
+    if (typeof editingMode !== 'undefined' && editingMode === true){
         readOnlyTag = "readonly='true'";
     }else{
         editingMode = false;
@@ -251,7 +253,7 @@ function createOutputElement(editingMode) {
     $('#output').append('<div><input id="name_virtual_sensor" type="text" placeholder="Name of virtual sensor" pattern="[A-z0-9_]{4,}" title="Only alphanumeric characters accepted" '+ readOnlyTag +'></div>');
     $('#output').append('<div class="sensor_value" id="output_value"></div>');
 
-    if (editingMode == true){
+    if (editingMode === true){
         $('#output').append('<div class="text-center">'+
             '<button class="btn btn-info" onclick="saveVirtualSensor(true);">Save</button>'+
             ' <button class="btn btn-info" onclick="closeEditingCanvas();">Close</button> '+
@@ -289,7 +291,7 @@ function createNewPhysicalSensorInCanvas(id, data) {
         $("#sensor_value_" + id).css("color", readSensorStatus(id));
         var temp = readSensorData(id, true);
         $("#sensor_value_" + id).html(temp);
-        if ((typeof temp == 'boolean')){
+        if ((typeof temp === 'boolean')){
             globalSensorChartsInfo[id].value(temp);
         }else{
             if (temp > 0){
