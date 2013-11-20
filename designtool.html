@@ -150,11 +150,13 @@ To
 $(document).ready(function () {
     $( "#date_from" ).datepicker({
       altField: "#date_from_alternate",
-      altFormat: "@"
+      altFormat: "@",
+      maxDate: 0
     });
     $( "#date_to" ).datepicker({
       altField: "#date_to_alternate",
-      altFormat: "@"
+      altFormat: "@",
+      maxDate: 0 
     });
 });
 </script>
