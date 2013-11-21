@@ -170,6 +170,20 @@ function saveVirtualSensor(editingMode) {
     storageObj["VIRTUAL_SENSORS"][virtualSensorName]["source"] = outputConnections[0].sourceId;
     storageObj["VIRTUAL_SENSORS"][virtualSensorName]["version"] = version;
 
+    var allWindows = $("div#design_canvas > div.window");
+    var layoutInfo = new Array();
+
+    for (var i=0; i<allWindows.length; i++)
+    {
+        var sensorView = new Object();
+        sensorView["id"] = allWindows.get(i).id;
+        sensorView["top"] = parseInt(allWindows.get(i).style["top"]);
+        sensorView["left"] = parseInt(allWindows.get(i).style["left"]);
+        layoutInfo.push(sensorView);
+    }
+
+    storageObj["VIRTUAL_SENSORS"]["LAYOUT"] = layoutInfo;
+
     persistToLocalStorage();
     populateVirtualSensorList();
     alert(virtualSensorName + " saved successfully!");
