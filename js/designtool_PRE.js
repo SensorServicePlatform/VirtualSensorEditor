@@ -31,38 +31,75 @@ var globalSensorChartsInfo = {};
 
 //mapping between device id and human readable labels
 idReadableMapping = {
-    "10170303":"B23_104",
-    "10170302":"B23_105B",
-    "10170006":"B23_107",
-    "10170005":"B23_109",
-    "10170004":"B23_110",
-    "10170002":"B23_115",
-    "10170003":"B23_116",
-    "10170308":"B23_120",
-    "10170307":"B23_122",
-    "10170304":"B23_123",
-    "10170306":"B23_124",
-    "10170305":"B23_126",
-    "10170103":"B23_129",
-    "10170102":"B23_129A",
-    "10170009":"B23_210",
-    "10170007":"B23_211",
-    "10170008":"B23_212",
-    "10170203":"B23_213",
-    "10170204":"B23_214",
-    "10170205":"B23_214B",
-    "10170207":"B23_215",
-    "10170206":"B23_215B",
-    "10170202":"B23_216",
-    "10170208":"B23_217A",
-    "10170209":"B23_217B",
-    "10170105":"B23_228",
-    "10170106":"B23_229",
-    "10170104":"B23_230",
+    "17030003":"B23_104",
+    "17030002":"B23_105B",
+    "17000006":"B23_107",
+    "17000005":"B23_109",
+    "17000004":"B23_110",
+    "17000002":"B23_115",
+    "17000003":"B23_116",
+    "17030008":"B23_120",
+    "17030007":"B23_122",
+    "17030004":"B23_123",
+    "17030006":"B23_124",
+    "17030005":"B23_126",
+    "17010003":"B23_129",
+    "17010002":"B23_129A",
+    "17000009":"B23_210",
+    "17000007":"B23_211",
+    "17000008":"B23_212",
+    "17020003":"B23_213",
+    "17020004":"B23_214",
+    "17020005":"B23_214B",
+    "17020007":"B23_215",
+    "17020006":"B23_215B",
+    "17020002":"B23_216",
+    "17020008":"B23_217A",
+    "17020009":"B23_217B",
+    "17010005":"B23_228",
+    "17010006":"B23_229",
+    "17010004":"B23_230",
     "235b1952f5cfc4ee": "213_A",
     "23295052f5cfc4ee": "213_B",
     "23703752f5cfc4ee": "213_C",
     "23366552f5cfc4ee": "213_D"
+};
+
+userGroupMapping = {
+  joe: ['student'],
+  bo: ['student'],
+  albert: ['faculty']
+};
+
+permissionMapping = {
+    "17030003":{owner: 'joe', group: 'student', permission: 'public'},
+    "17030002":{owner: 'joe', group: 'student', permission: 'public'},
+    "17000006":{owner: 'joe', group: 'student', permission: 'public'},
+    "17000005":{owner: 'joe', group: 'student', permission: 'public'},
+    "17000004":{owner: 'joe', group: 'student', permission: 'public'},
+    "17000002":{owner: 'joe', group: 'student', permission: 'public'},
+    "17000003":{owner: 'joe', group: 'student', permission: 'public'},
+    "17030008":{owner: 'joe', group: 'student', permission: 'public'},
+    "17030007":{owner: 'joe', group: 'student', permission: 'public'},
+    "17030004":{owner: 'joe', group: 'student', permission: 'public'},
+    "17030006":{owner: 'joe', group: 'student', permission: 'public'},
+    "17030005":{owner: 'joe', group: 'student', permission: 'public'},
+    "17010003":{owner: 'joe', group: 'student', permission: 'owner'},
+    "17010002":{owner: 'joe', group: 'student', permission: 'owner'},
+    "17000009":{owner: 'joe', group: 'student', permission: 'owner'},
+    "17000007":{owner: 'albert', group: 'faculty', permission: 'group'},
+    "17000008":{owner: 'albert', group: 'faculty', permission: 'group'},
+    "17020003":{owner: 'albert', group: 'faculty', permission: 'group'},
+    "17020004":{owner: 'albert', group: 'faculty', permission: 'public'},
+    "17020005":{owner: 'albert', group: 'faculty', permission: 'public'},
+    "17020007":{owner: 'albert', group: 'faculty', permission: 'public'},
+    "17020006":{owner: 'albert', group: 'faculty', permission: 'public'},
+    "17020002":{owner: 'albert', group: 'faculty', permission: 'public'},
+    "17020008":{owner: 'albert', group: 'faculty', permission: 'public'},
+    "17020009":{owner: 'albert', group: 'faculty', permission: 'owner'},
+    "17010005":{owner: 'albert', group: 'faculty', permission: 'owner'},
+    "17010006":{owner: 'albert', group: 'faculty', permission: 'owner'},
+    "17010004":{owner: 'albert', group: 'faculty', permission: 'owner'},
 };
 
 
@@ -561,21 +598,86 @@ $('#temp').html('');
 $.each(idReadableMapping, function (key, val) {
     var tmp = val.split("_");
     var str_name = tmp[0] + "RM" + tmp[1];
-    var str_temp = "<div draggable='true' ondragstart='drag(event)' rel='digital_temp' id=" + key + " name='" + str_name + "TEMP'><header>" + val + "</header></div>";
-    $('#temp').append(str_temp + '<br/>');
+    var str_temp = "<div class='sensor' draggable='true' ondragstart='drag(event)' rel='digital_temp' id=" + key + " name='" + str_name + "TEMP'><header>" + val + "</header></div>";
+    $('#temp').append(str_temp);
 
-    var str_light = "<div draggable='true' ondragstart='drag(event)' rel='light' id=" + key + " name='" + str_name + "LHT'><header>" + val + "</header></div>";
-    $('#light').append(str_light + '<br/>');
+    var str_light = "<div class='sensor' draggable='true' ondragstart='drag(event)' rel='light' id=" + key + " name='" + str_name + "LHT'><header>" + val + "</header></div>";
+    $('#light').append(str_light);
 
-    var str_humidity = "<div draggable='true' ondragstart='drag(event)' rel='humidity' id=" + key + " name='" + str_name + "HUM'><header>" + val + "</header></div>";
-    $('#humidity').append(str_humidity + '<br/>');
+    var str_humidity = "<div class='sensor' draggable='true' ondragstart='drag(event)' rel='humidity' id=" + key + " name='" + str_name + "HUM'><header>" + val + "</header></div>";
+    $('#humidity').append(str_humidity);
 
-    var str_audio_p2p = "<div draggable='true' ondragstart='drag(event)' rel='audio_p2p' id=" + key + " name='" + str_name + "SND'><header>" + val + "</header></div>";
-    $('#sound_level').append(str_audio_p2p + '<br/>');
+    var str_audio_p2p = "<div class='sensor' draggable='true' ondragstart='drag(event)' rel='audio_p2p' id=" + key + " name='" + str_name + "SND'><header>" + val + "</header></div>";
+    $('#sound_level').append(str_audio_p2p);
 
-    var str_motion = "<div draggable='true' ondragstart='drag(event)' rel='motion' id=" + key + " name='" + str_name + "MOT'><header>" + val + "</header></div>";
-    $('#motion').append(str_motion + '<br/>');
+    var str_motion = "<div class='sensor' draggable='true' ondragstart='drag(event)' rel='motion' id=" + key + " name='" + str_name + "MOT'><header>" + val + "</header></div>";
+    $('#motion').append(str_motion);
 });
+
+$('.sensor').each(function () {
+  var $this = $(this);
+  var id = $this.attr('id');
+  if (id in permissionMapping) {
+    var content = [
+      '<ul>',
+      '<li>',
+      'owner:',
+      permissionMapping[id].owner,
+      '</li>',
+      '<li>',
+      'group:',
+      permissionMapping[id].group,
+      '</li>',
+      '<li>',
+      'visible to:',
+      permissionMapping[id].permission,
+      '</li>',
+      '</ul>'
+    ].join(' ');
+
+    $this.tooltip({
+      content: content
+    }).attr({
+      title: content
+    });
+  }
+});
+
+function setCurrentUser(username) {
+  var groups = userGroupMapping[username];
+
+  $('#user-name .value').text(username);
+  $('#user-groups .value').text(groups.join(', '));
+
+  $('.sensor').each(function () {
+    var $this = $(this);
+    var id = $this.attr('id');
+    if (id in permissionMapping) {
+      var rule = permissionMapping[id];
+      var permission = rule.permission;
+      var owner = rule.owner;
+      var group = rule.group;
+      var accessible;
+      switch (permission) {
+        case 'owner':
+          accessible = (owner === username);
+          break;
+        case 'group':
+          accessible = (groups.indexOf(group) >= 0);
+          break;
+        case 'public':
+          accessible = true;
+          break;
+        default:
+          accessible = false;
+      }
+      $this.toggleClass('inaccessible', !accessible);
+      $this.attr('draggable', accessible);
+    }
+  });
+}
+
+setCurrentUser('joe');
 
 setInterval(function () {
     sensorTimer("digital_temp");
