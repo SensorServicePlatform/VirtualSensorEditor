@@ -53,7 +53,7 @@ sn_visualization.main = (function(){
       );
       pollingWorker.postMessage({
         type: "START",
-        url: "http://einstein.sv.cmu.edu/last_readings_from_all_devices/1368568896000/temp/json",
+        url: "http://einstein.sv.cmu.edu/last_readings_from_all_devices/1386168297000/temp/json",
       });
     },
 		buildSensorsObj = function(callback){
