@@ -7,7 +7,9 @@ function pollData(){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4) {
-        if (xhr.status == 200 || xhr.status ==0) { postMessage(xhr.responseText); }
+        if (xhr.status == 200 || xhr.status ==0) { 
+          postMessage(xhr.responseText); 
+        }
         else { throw  xhr.status+xhr.responseText; }
         setTimeout( function(){ pollData(); }, interval);
       }

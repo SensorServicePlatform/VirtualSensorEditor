@@ -15,6 +15,7 @@ sn_visualization.floorViews = (function(){
   };
 }());
 
+
 sn_visualization.floorView = function(bgGeo, elevations, ugTable, selector, imgs){
   // temporary use cmusv second floor as default
   this.heatmaps = [],
@@ -22,32 +23,32 @@ sn_visualization.floorView = function(bgGeo, elevations, ugTable, selector, imgs
   this.backgroundGeo = bgGeo || [[37.410326,-122.059208], [37.410490,-122.060227]];
   this.elevations = elevations || 1;
   this.uriGeoTable = ugTable || {
-    '10170205' : { print_name : "Sensor Andrew 214B", geo : [37.410465,-122.059935, 1] },
-    '10170204' : { print_name : "Sensor Andrew 214", geo : [37.410465,-122.059990, 1] },
-    '10170203' : { print_name : "Sensor Andrew 213", geo : [37.410466,-122.060050, 1] },
-    '10170202' : { print_name : "Sensor Andrew 216", geo : [37.410449,-122.060050, 1] },
-    '10170208' : { print_name : "Sensor Andrew 217A", geo : [37.410449,-122.059784, 1] },
-    '10170209' : { print_name : "Sensor Andrew 217B", geo : [37.410449,-122.059874, 1] },
-    '10170105' : { print_name : "Sensor Andrew 228", geo : [37.410411,-122.059480, 1] },
-    '10170104' : { print_name : "Sensor Andrew 230", geo : [37.410400,-122.059480, 1] },
-    '10170007' : { print_name : "Sensor Andrew 211", geo : [37.410350,-122.059890, 1] },
-    '10170008' : { print_name : "Sensor Andrew 212", geo : [37.410350,-122.059990, 1] },
-    '10170207' : { print_name : "Sensor Andrew 215", geo : [37.410465,-122.059780, 1] },
-    '10170206' : { print_name : "Sensor Andrew 215B", geo : [37.410465,-122.059852, 1] },
-    '10170009' : { print_name : "Sensor Andrew 210", geo : [37.410362,-122.060040, 1] },
-    '10170303' : { print_name : "Sensor Andrew 104", geo : [37.410386,-122.060032, 0] },
-    '10170302' : { print_name : "Sensor Andrew 105B", geo : [37.410379,-122.060032, 0] },
-    '10170006' : { print_name : "Sensor Andrew 107", geo : [37.410368,-122.060048, 0] },
-    '10170005' : { print_name : "Sensor Andrew 109", geo : [37.410350,-122.059990, 0] },
-    '10170004' : { print_name : "Sensor Andrew 110", geo : [37.410350,-122.059930, 0] },
-    '10170002' : { print_name : "Sensor Andrew 115", geo : [37.410357,-122.059680, 0] },
-    '10170003' : { print_name : "Sensor Andrew 116", geo : [37.410365,-122.059680, 0] },
-    '10170308' : { print_name : "Sensor Andrew 120", geo : [37.410442,-122.060030, 0] },
-    '10170307' : { print_name : "Sensor Andrew 122", geo : [37.410437,-122.060030, 0] },
-    '10170306' : { print_name : "Sensor Andrew 124", geo : [37.410431,-122.060030, 0] },
-    '10170305' : { print_name : "Sensor Andrew 126", geo : [37.410425,-122.060030, 0] },
-    '10170103' : { print_name : "Sensor Andrew 129", geo : [37.410400,-122.059750, 0] },
-    '10170102' : { print_name : "Sensor Andrew 129A", geo : [37.410415,-122.059630, 0] },
+    '17020005' : { print_name : "Sensor Andrew 214B", geo : [37.410465,-122.059935, 1] },
+    '17020004' : { print_name : "Sensor Andrew 214", geo : [37.410465,-122.059990, 1] },
+    '17020003' : { print_name : "Sensor Andrew 213", geo : [37.410466,-122.060050, 1] },
+    '17020002' : { print_name : "Sensor Andrew 216", geo : [37.410449,-122.060050, 1] },
+    '17020008' : { print_name : "Sensor Andrew 217A", geo : [37.410449,-122.059784, 1] },
+    '17020009' : { print_name : "Sensor Andrew 217B", geo : [37.410449,-122.059874, 1] },
+    '17010005' : { print_name : "Sensor Andrew 228", geo : [37.410411,-122.059480, 1] },
+    '17010004' : { print_name : "Sensor Andrew 230", geo : [37.410400,-122.059480, 1] },
+    '17000007' : { print_name : "Sensor Andrew 211", geo : [37.410350,-122.059890, 1] },
+    '17000008' : { print_name : "Sensor Andrew 212", geo : [37.410350,-122.059990, 1] },
+    '17020007' : { print_name : "Sensor Andrew 215", geo : [37.410465,-122.059780, 1] },
+    '17020006' : { print_name : "Sensor Andrew 215B", geo : [37.410465,-122.059852, 1] },
+    '17000009' : { print_name : "Sensor Andrew 210", geo : [37.410362,-122.060040, 1] },
+    '17030003' : { print_name : "Sensor Andrew 104", geo : [37.410386,-122.060032, 0] },
+    '17030002' : { print_name : "Sensor Andrew 105B", geo : [37.410379,-122.060032, 0] },
+    '17000006' : { print_name : "Sensor Andrew 107", geo : [37.410368,-122.060048, 0] },
+    '17000005' : { print_name : "Sensor Andrew 109", geo : [37.410350,-122.059990, 0] },
+    '17000004' : { print_name : "Sensor Andrew 110", geo : [37.410350,-122.059930, 0] },
+    '17000002' : { print_name : "Sensor Andrew 115", geo : [37.410357,-122.059680, 0] },
+    '17000003' : { print_name : "Sensor Andrew 116", geo : [37.410365,-122.059680, 0] },
+    '17030008' : { print_name : "Sensor Andrew 120", geo : [37.410442,-122.060030, 0] },
+    '17030007' : { print_name : "Sensor Andrew 122", geo : [37.410437,-122.060030, 0] },
+    '17030006' : { print_name : "Sensor Andrew 124", geo : [37.410431,-122.060030, 0] },
+    '17030005' : { print_name : "Sensor Andrew 126", geo : [37.410425,-122.060030, 0] },
+    '17010003' : { print_name : "Sensor Andrew 129", geo : [37.410400,-122.059750, 0] },
+    '17010002' : { print_name : "Sensor Andrew 129A", geo : [37.410415,-122.059630, 0] },
     '23-03' : { print_name : "Jeenet 213", geo : [37.410460,-122.060090, 1] },
     '23-05' : { print_name : "Jeenet 214", geo : [37.4104695,-122.060006, 1] },
     '23-01' : { print_name : "Jeenet 216", geo : [37.410454,-122.060090, 1] },
@@ -114,8 +115,9 @@ sn_visualization.floorView.prototype = {
 
     for(var key in data){
       var
-        offset = now.getTime()-data[key]*1000,
-        targetBlock = $('.floorNode[data-d_uri="'+key+'"] .nodeBlock');
+        offset = now.getTime()-data[key].timestamp*1000,
+        id = data[key].device_id,
+        targetBlock = $('.floorNode[data-d_uri="'+id+'"] .nodeBlock');
 
       targetBlock.removeClass('badBlock avgBlock goodBlock');
       if(offset > 3*60*1000){ targetBlock.addClass('badBlock'); }

@@ -11,7 +11,6 @@ sn_visualization.main = (function(){
       pollingWorker.addEventListener(
         'message', function(e){
           var data = JSON.parse(e.data);
-          console.log(data);
 
           // Update data in topologicalView and floorView
           sn_visualization.topologicalView.updateStatus(data);
@@ -53,7 +52,7 @@ sn_visualization.main = (function(){
       );
       pollingWorker.postMessage({
         type: "START",
-        url: hostname + "/last_readings_from_all_devices",
+        url: hostname + "/lastest_readings_from_all_devices/temp/json",
       });
     },
 		buildSensorsObj = function(callback){

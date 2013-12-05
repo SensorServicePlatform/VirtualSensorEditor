@@ -114,8 +114,10 @@ sn_visualization.floorView.prototype = {
 
     for(var key in data){
       var
-        offset = now.getTime()-data[key]*1000,
-        targetBlock = $('.floorNode[data-d_uri="'+key+'"] .nodeBlock');
+        deviceId = data[key].device_id,
+        offset = now.getTime()-data[key].timestamp * 1000,
+        targetBlock = $('.floorNode[data-d_uri="'+deviceId+'"] .nodeBlock');
+        console.log(targetBlock)
 
       targetBlock.removeClass('badBlock avgBlock goodBlock');
       if(offset > 3*60*1000){ targetBlock.addClass('badBlock'); }

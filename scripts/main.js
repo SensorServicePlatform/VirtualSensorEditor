@@ -11,7 +11,6 @@ sn_visualization.main = (function(){
       pollingWorker.addEventListener(
         'message', function(e){
           var data = JSON.parse(e.data);
-          console.log(data);
 
           // Update data in topologicalView and floorView
           sn_visualization.topologicalView.updateStatus(data);
@@ -22,17 +21,19 @@ sn_visualization.main = (function(){
 
           for(var key in data){
             var
-              offset = now.getTime()-data[key]*1000,
-              targetCard = $('#dashboardView .deviceCard[data-d_uri='+key+']');
+              offset = now.getTime()-data[key].timestamp,
+              device_id = data[key].device_id,
+              targetCard = $('#dashboardView .deviceCard[data-d_uri='+device_id+']');
 
             if(targetCard.length == 0){
               var cardHTML =
-                '<div class="deviceCard" data-d_uri="'+key+'">'+
-                key+
+                '<div class="deviceCard" data-d_uri="'+device_id+'">'+
+                device_id+
                 '</div>';
               $('#dashboardView').append(cardHTML);
-              targetCard = $('#dashboardView .deviceCard[data-d_uri='+key+']');
+              targetCard = $('#dashboardView .deviceCard[data-d_uri='+device_id+']');
             }
+            //console.log('#dashboardView .deviceCard[data-d_uri='+device_id+']');
 
             targetCard.removeClass('badBlock avgBlock goodBlock');
             if(offset > 3*60*1000){ targetCard.addClass('badBlock'); }
@@ -53,7 +54,7 @@ sn_visualization.main = (function(){
       );
       pollingWorker.postMessage({
         type: "START",
-        url: "http://einstein.sv.cmu.edu/last_readings_from_all_devices/1386168297000/temp/json",
+        url: "http://einstein.sv.cmu.edu/lastest_readings_from_all_devices/temp/json",
       });
     },
 		buildSensorsObj = function(callback){
