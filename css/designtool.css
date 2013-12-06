@@ -236,3 +236,27 @@ path.dvl {
     fill: none;
     stroke-width: 2;
 }
+
+.sensor {
+  padding: 5px 10px;
+  cursor: move;
+  text-align: center;
+}
+
+.inaccessible {
+  background: #f99;
+}
+
+#user-status {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
+#user-name {
+  text-align: right;
+}
+
+#user-groups {
+  text-align: right;
+}
