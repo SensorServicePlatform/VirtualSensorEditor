@@ -12,6 +12,7 @@
 		<script type="text/javascript" src="jasmine-jquery/vendor/jasmine/jasmine-html.js"></script>
 		<script type="text/javascript" src="jasmine-jquery/vendor/jquery/jquery.js"></script>
 		<script type="text/javascript" src="jasmine-jquery/lib/jasmine-jquery.js"></script>
+		<script type="text/javascript" src="jasmine-jquery/lib/jasmine-matchers.js"></script>
 		<script src="js/lib/jquery-ui-1.9.2-min.js"></script>
 		<script src="js/lib/jquery.ui.touch-punch.min.js"></script>
 		<script src="js/lib/jquery.jsPlumb-1.4.1-all-min.js"></script>
@@ -26,6 +27,7 @@
 
 		<script type="text/javascript" src="spec/designtool_BLL_spec.js"></script>
 		<script type="text/javascript" src="spec/designtool_PRE_spec.js"></script>
+        <script type="text/javascript" src="spec/DesignToolSpec.js"></script>
 		<script type="text/javascript" src="spec/SpecHelper.js"></script>
 
 		<script type="text/javascript">
@@ -59,5 +61,154 @@
 
 	</head>
 
-	<body></body>
+<body data-demo-id="flowchartConnectorsDemo" data-library="jquery">
+<div id="sensor_canvas" class="hidden">
+    <header class="cmu_layout" id="cmu_header">
+        <div id="title">
+            Carnegie Mellon University<br/>Virtual Sensor Design Tool
+        </div>
+        <nav>
+            <div class="menu">
+                <ul>
+                    <li>&nbsp;<input type="button" onclick="startIntro();" value="Intro" class=" btn btn-success">&nbsp;</li>
+                    <li><a class="hide" id="help" href="help.html" target="_blank">HELP</a></li>
+                    <li><a class="hide" href="http://clydeli.github.io/sn-visualization/dev" target="_blank">VISUALIZATION</a></li>
+                    <li>
+                        <a class="hide non-link">SPONSORS</a>
+                        <ul>
+                            <li><a href="http://www.nasa.gov" target="_blank">NASA</a></li>
+                            <li><a href="http://www.sap.com/index.epx" target="_blank">SAP</a></li>
+                            <li><a href="http://www.ericsson.com" target="_blank">ERICSSON</a></li>
+                        </ul>
+                    </li>   
+                    <li>
+                        <a class="hide non-link">ABOUT US</a>
+                        <ul>
+                            <li><a href="faculty.html" target="_blank">FACULTY</a></li>
+                            <li><a href="team.html" target="_blank">TEAM VIRTUAL</a></li>
+                        </ul>
+                    </li>   
+            <li>
+              <a class="hide" id="data-source-toggle">PROD</a>
+            </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div id="accordion_container">
+        <div id="accordion">
+            <h4>Temperature</h4>
+            <div id="temp">
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+            </div>
+            <h4>Light</h4>
+            <div id="light">
+            </div>
+            <h4>Humidity</h4>
+            <div id="humidity">
+            </div>
+            <h4>Sound</h4>
+            <div id="sound_level">
+            </div>
+            <h4>Motion</h4>
+            <div id="motion">
+            </div>
+            <h4 id="virtual_sensors_instances_title">Virtual sensors</h4>
+            <div id="virtual_sensors_instances">
+            </div>
+
+            <h4>Algorithms</h4>
+            <div id="virtual_sensors_algorithms">
+                <div draggable='true' ondragstart='drag(event)' rel="algorithm" id="algo_average" name="AVERAGE">
+                     <header>AVERAGE</header>
+                </div>
+                <br/>
+                <div draggable='true' ondragstart='drag(event)' rel="algorithm" id="algo_max" name="MAX">
+                     <header>MAX</header>
+                </div>
+                <br/>
+                <div draggable='true' ondragstart='drag(event)' rel="algorithm" id="algo_average" name="MIN">
+                    <header>MIN</header>
+                </div>
+                <br>
+                <div draggable='true' ondragstart='drag(event)' rel="algorithm" id="algo_co2" name="CO2">
+                    <header>CO2</header>
+                </div>
+                <br/>
+            </div>
+
+            <h4>VS templates</h4>
+
+            <div id="virtual_sensors_templates">
+                <div draggable='true' ondragstart='drag(event)' rel="custom" id="template1" name="FUNCTION">
+                       <header>FUNCTION</header>
+                </div>
+                <br/>
+                <div draggable='true' ondragstart='drag(event)' rel="feeder" id="feeder" name="FEEDER">
+                       <header>FEEDER</header>
+                </div>
+                <br />
+                <div draggable='true' ondragstart='drag(event)' rel="monitor" id="Div1" name="MONITOR">
+                       <header>MONITOR</header>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(function() {
+                $("#viewMode").buttonset();
+            });
+        </script>
+            <div id="viewMode" class="text-center">
+                <input type="radio" id="radio1" value="code" name="viewMode"  checked="checked" onchange="toggleViewMode(this.value);" /><label for="radio1">Code</label>
+                <input type="radio" id="radio2" value="chart"  name="viewMode" onchange="toggleViewMode(this.value);" /><label for="radio2">Graph</label>
+            </div>
+    </div>
+
+    <div id="timestamp" style="height:40px;text-align:right;">
+        From
+            <input type="text" name="date_from" id="date_from" style="margin:5px;" />
+            <input type="hidden" name="date_from_alternate" id="date_from_alternate" />
+        To
+            <input type="text" name="date_to" id="date_to" style="margin:5px;" />
+            <input type="hidden" name="date_to_alternate" id="date_to_alternate" />
+    </div>
+
+    <div id="design_canvas" ondrop="drop_window(event)" ondragover="allowDrop(event)">
+    </div>
+</div>
+        <script src="js/designtool_BLL.js"></script>
+        <script src="js/designtool_WSL.js"></script>
+        <script src="js/designtool_PRE.js"></script>
+        <script type='text/javascript' src='js/lib/psMathStats.min.js'></script>
+        <script src="js/context-menu.js"></script>
+    
+    <script>
+        $(document).ready(function () {
+            $( "#date_from" ).datepicker({
+              altField: "#date_from_alternate",
+              altFormat: "@",
+              maxDate: 0
+            });
+            $( "#date_to" ).datepicker({
+              altField: "#date_to_alternate",
+              altFormat: "@",
+              maxDate: 0 
+            });
+        });
+    </script>
+</body>
 </html>
