@@ -10,8 +10,8 @@ describe("Design tool", function() {
 		});
 		
 		//Spec (Test case)
-		it("should be able to read a feeder", function() {
-			expect(readSensorData(feederUUID)).toBe(100.0);
+		it("should have the canvas to drop sensors on ", function() {
+			expect($('design_canvas')).toBeObject();
 		});
 	});	
 });
