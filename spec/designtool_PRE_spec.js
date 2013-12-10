@@ -1,127 +1,251 @@
 //Test Suite for Design Tool
 describe("Presentation Layer", function() {
 	describe("createNewElementInCanvas method", function() {
-		var feederUUID = "hcjacmf";
-		
+		var feederUUID = "123456789";
+		var data = {"inputvalue" : 100.0};
+
 		beforeEach(function() {
-    		createFeeder(feederUUID);
+    		createNewElementInCanvas = { 
+				createOutputElement: function(){}
+    		}
+
+    		spyOn(createNewElementInCanvas, 'createOutputElement');
+    		createNewElementInCanvas.createOutputElement(true);	
 		});
 		
 		it("should be able to create a new element on canvas", function() {
-			expect(readSensorData(feederUUID)).toBe(100.0);
+			expect(createNewElementInCanvas.createOutputElement).toHaveBeenCalledWith(true);
 		});
 	});	
 	
-	describe("deleteElement method", function() {
-		var feederUUID = "hcjacmf";
+	describe("deleteElement method ", function() {
+		var feederUUID = "123456789";
 		
 		beforeEach(function() {
     		createFeeder(feederUUID);
+
+    		deleteElement = {
+    			removeFromGlobalSensorInfo: function(){}
+    		}
+
+    		spyOn(deleteElement,'removeFromGlobalSensorInfo');
+    		deleteElement.removeFromGlobalSensorInfo();
 		});
 		
 		it("should be able to delete an element", function() {
-			expect(readSensorData(feederUUID)).toBe(100.0);
+			expect(deleteElement.removeFromGlobalSensorInfo).toHaveBeenCalled();
 		});
 	});	
 	
-	describe("createOutputElement method", function() {
-		var feederUUID = "hcjacmf";
+	describe(" createOutputElement method ", function() {
+		var feederUUID = "123456789";
 		
-		beforeEach(function() {
-    		createFeeder(feederUUID);
-		});
-		
-		it("should be able to create output elemetn", function() {
-			expect(readSensorData(feederUUID)).toBe(100.0);
-		});
+		it("should have a div called Design Canvas", function() {
+			expect($('#design_canvas')).toBe('div');
+		});				
 	});	
 	
-	describe("createNewPhysicalSensorInCanvas method", function() {
-		var feederUUID = "hcjacmf";
+	describe("createNewPhysicalSensorInCanvas method ", function() {
+		var feederUUID = "123456789";
+		var x = 180;
+		var y = 120;
 		
 		beforeEach(function() {
     		createFeeder(feederUUID);
+
+    		createNewPhysicalSensorInCanvas = {
+    			setupChart: function(){}
+    		}	
+
+    		spyOn(createNewPhysicalSensorInCanvas,'setupChart');
+    		createNewPhysicalSensorInCanvas.setupChart(feederUUID, x, y);
 		});
-		
-		it("should be able to create a new physical sensor on canvas", function() {
-			expect(readSensorData(feederUUID)).toBe(100.0);
+
+		it("should have a div called Design Canvas", function() {
+			expect($('#design_canvas')).toBe('div');
+		});	
+
+		it("should have a class called window", function() {
+			expect($('<div class="window" id="' + feederUUID + '" >')).toHaveClass("window");
 		});
+				
+		it("should have a sensor value object on canvas", function() {
+			expect($("#sensor_value_" + feederUUID)).toBeObject();
+		});
+
+		it("should call the setup chart function", function() {
+			expect(createNewPhysicalSensorInCanvas.setupChart).toHaveBeenCalled();
+		});
+
+		it("should construct the JSON string with the UUID", function() {
+			expect(globalSensorInfo).toBeObject();
+		});	
 	});	
 	
 	describe("createNewVirtualSensorInCanvas method", function() {
-		var feederUUID = "hcjacmf";
+		var feederUUID = "123456789";
 		
 		beforeEach(function() {
     		createFeeder(feederUUID);
+			var x = 180;
+			var y = 120;	
+
+    		unfoldVirtualSensorInCanvas = {
+    			unfoldVirtualSensor: function(){}
+    		}
+
+       		createNewVirtualSensorInCanvas = {
+    			setupChart: function(){}
+    		}
+
+			spyOn(unfoldVirtualSensorInCanvas,'unfoldVirtualSensor');
+    		unfoldVirtualSensorInCanvas.unfoldVirtualSensor();
+
+    		spyOn(createNewVirtualSensorInCanvas,'setupChart');
+    		createNewVirtualSensorInCanvas.setupChart(feederUUID, x, y);
 		});
-		
-		it("should be able to create a new virtual sensor on canvas", function() {
-			expect(readSensorData(feederUUID)).toBe(100.0);
+
+		it("should have a div called Design Canvas", function() {
+			expect($('#design_canvas')).toBe('div');
+		});	
+
+		it("should have a class called Window", function() {
+			expect($('<div class="window" id="' + feederUUID + '" >')).toHaveClass("window");
 		});
+				
+		it("should have a Sensor Value object on canvas", function() {
+			expect($("#sensor_value_" + feederUUID)).toBeObject();
+		});
+
+		it("should call the unfold virtual sensor function", function() {
+			expect(unfoldVirtualSensorInCanvas.unfoldVirtualSensor).toHaveBeenCalled();
+		});
+
+		it("should call the setup chart function", function() {
+			expect(createNewVirtualSensorInCanvas.setupChart).toHaveBeenCalled();
+		});
+
+		it("should construct the JSON string with the UUID", function() {
+			expect(globalSensorInfo).toBeObject();
+		});	
 	});	
 	
 	describe("createNewTemplateInCanvas method", function() {
-		var feederUUID = "hcjacmf";
+		var feederUUID = "123456789";
+		var x = 180;
+		var y = 120;
 		
 		beforeEach(function() {
     		createFeeder(feederUUID);
+
+    		createNewTemplateInCanvas = {
+    			setupChart: function(){}
+    		}	
+
+    		spyOn(createNewTemplateInCanvas,'setupChart');
+    		createNewTemplateInCanvas.setupChart(feederUUID, x, y);
 		});
+
+		it("should have a div called Design Canvas", function() {
+			expect($('#design_canvas')).toBe('div');
+		});	
+
+		it("should have a class called window", function() {
+			expect($('<div class="window" id="' + feederUUID + '" >')).toHaveClass("window");
+		});
+				
+		it("should have a sensor value object on canvas", function() {
+			expect($("#sensor_value_" + feederUUID)).toBeObject();
+		});
+
+		it("should call the setup chart function", function() {
+			expect(createNewTemplateInCanvas.setupChart).toHaveBeenCalled();
+		});	
 		
-		it("should be able to create a new template on canvas", function() {
-			expect(readSensorData(feederUUID)).toBe(100.0);
-		});
+		it("should construct the JSON string with the UUID", function() {
+			expect(globalSensorInfo).toBeObject();
+		});	
 	});	
 	
 	describe("createNewFeederInCanvas method", function() {
-		var feederUUID = "hcjacmf";
-		
+		var feederUUID = "123456789";
+		var data = {"inputvalue" : 100.0};
+
 		beforeEach(function() {
     		createFeeder(feederUUID);
 		});
 		
-		it("should be able to create a new feeder on canvas", function() {
-			expect(readSensorData(feederUUID)).toBe(100.0);
+		it("should have a div with the UUID", function() {
+			console.log("Here in feeder");
+			expect($('<div class="window" id="' + feederUUID + '" >')).toBe('div');
 		});
+
+		it("should have a class 'Window' with the UUID", function() {
+			console.log("Here in feeder");
+			expect($('<div class="window" id="' + feederUUID + '" >')).toHaveClass('window');
+		});
+
+		it("should construct the JSON string with the UUID", function() {
+			expect(globalSensorInfo).toBeObject();
+		});	
 	});	
 	
 	describe("createNewMonitorInCanvas method", function() {
-		var feederUUID = "hcjacmf";
+		var feederUUID = "123456789";
 		
 		beforeEach(function() {
     		createFeeder(feederUUID);
 		});
 		
-		it("should be able to create a new monitor on canvas", function() {
-			expect(readSensorData(feederUUID)).toBe(100.0);
+		it("should have a div called Design Canvas", function() {
+			expect($('#design_canvas')).toBe('div');
+		});	
+
+		it("should have a class called window", function() {
+			expect($('<div class="window" id="' + feederUUID + '" >')).toHaveClass("window");
 		});
+
 	});	
 	
 	describe("monitorClick method", function() {
-		var feederUUID = "hcjacmf";
+		var feederUUID = "123456789";
 		
 		beforeEach(function() {
     		createFeeder(feederUUID);
 		});
 		
-		it("should be able to click on the method", function() {
-			expect(readSensorData(feederUUID)).toBe(100.0);
+		it("should hava a hidden field status object", function() {
+			expect($("#hidden_field_status_" + feederUUID)).toBeObject();
+		});
+
+		it("should hava a monitor button object for the sensor", function() {
+			expect($("#monitor_button_" + feederUUID)).toBeObject();//toBeObject();
 		});
 	});	
 	
 	describe("setCustomFunction method", function() {
-		var feederUUID = "hcjacmf";
+		var feederUUID = "123456789";
 		
 		beforeEach(function() {
     		createFeeder(feederUUID);
 		});
 		
-		it("should be able to set custom function", function() {
-			expect(readSensorData(feederUUID)).toBe(100.0);
+		it("should hava a hidden code object", function() {
+			expect($("#hidden_code_" + feederUUID)).toBeObject();
 		});
+		
+		it("should hava a hidden field is valid object", function() {
+			expect($("#hidden_field_is_valid_" + feederUUID)).toBeObject();
+		});
+
+		it("should construct the JSON string with the UUID", function() {
+			expect(globalSensorInfo[feederUUID]).toBeObject();
+		});	
+
 	});	
 	
 	describe("drag method", function() {
-		var feederUUID = "hcjacmf";
+		var feederUUID = "123456789";
 		
 		beforeEach(function() {
     		createFeeder(feederUUID);
@@ -133,7 +257,7 @@ describe("Presentation Layer", function() {
 	});	
 	
 	describe("drop_window method", function() {
-		var feederUUID = "hcjacmf";
+		var feederUUID = "123456789";
 		
 		beforeEach(function() {
     		createFeeder(feederUUID);
@@ -145,7 +269,7 @@ describe("Presentation Layer", function() {
 	});	
 	
 	describe("fixEndpoints method", function() {
-		var feederUUID = "hcjacmf";
+		var feederUUID = "123456789";
 		
 		beforeEach(function() {
     		createFeeder(feederUUID);
@@ -157,7 +281,7 @@ describe("Presentation Layer", function() {
 	});	
 	
 	describe("calculateEndpointPosition method", function() {
-		var feederUUID = "hcjacmf";
+		var feederUUID = "123456789";
 		
 		beforeEach(function() {
     		createFeeder(feederUUID);
@@ -168,20 +292,32 @@ describe("Presentation Layer", function() {
 		});
 	});	
 	
-	describe("addTargetEndpoint method", function() {
-		var feederUUID = "hcjacmf";
+	describe(" addTargetEndpoint method", function() {
+		var feederUUID = "123456789";
+		var obj;
+		var targetEndpoints;
 		
 		beforeEach(function() {
     		createFeeder(feederUUID);
+
+    		addTargetEndpoint = {
+    			getEndPointsOfElement: function(){}
+    		}	
+    		spyOn(addTargetEndpoint,'getEndPointsOfElement');
+    		addTargetEndpoint.getEndPointsOfElement();
 		});
 		
+		it("should be get the end points of an element", function() {
+			expect(addTargetEndpoint.getEndPointsOfElement).toHaveBeenCalled();
+		});
+
 		it("should be able to add a targe end point", function() {
 			expect(readSensorData(feederUUID)).toBe(100.0);
 		});
 	});	
 	
 	describe("removeTargetEndpoint method", function() {
-		var feederUUID = "hcjacmf";
+		var feederUUID = "123456789";
 		
 		beforeEach(function() {
     		createFeeder(feederUUID);
@@ -193,75 +329,46 @@ describe("Presentation Layer", function() {
 	});	
 	
 	describe("feederLabelClick method", function() {
-		var feederUUID = "hcjacmf";
+		var feederUUID = "123456789";
 		
 		beforeEach(function() {
     		createFeeder(feederUUID);
 		});
 		
 		it("should be able to click on a label", function() {
-			expect(readSensorData(feederUUID)).toBe(100.0);
-		});
-	});	
-	
-	describe("setFeederValue method", function() {
-		var feederUUID = "hcjacmf";
-		
-		beforeEach(function() {
-    		createFeeder(feederUUID);
-		});
-		
-		it("should be able to set a value for a feeder", function() {
-			expect(readSensorData(feederUUID)).toBe(100.0);
-		});
-	});	
-	
-	describe("getEndPointsOfElement method", function() {
-		var feederUUID = "hcjacmf";
-		
-		beforeEach(function() {
-    		createFeeder(feederUUID);
-		});
-		
-		it("should be able to get end points of an element", function() {
-			expect(readSensorData(feederUUID)).toBe(100.0);
-		});
-	});	
-	
-	describe("setupChart method", function() {
-		var feederUUID = "hcjacmf";
-		
-		beforeEach(function() {
-    		createFeeder(feederUUID);
-		});
-		
-		it("should be able to setup the chart", function() {
-			expect(readSensorData(feederUUID)).toBe(100.0);
+			expect($("#sensor_value_" + feederUUID)).toHaveClass('sensor_value');
 		});
 	});	
 	
 	describe("codeView method", function() {
-		var feederUUID = "hcjacmf";
+		var feederUUID = "123456789";
 		
 		beforeEach(function() {
     		createFeeder(feederUUID);
 		});
 		
-		it("should be able to view the code", function() {
-			expect(readSensorData(feederUUID)).toBe(100.0);
+		it("should have a function container object", function() {
+			expect($('#vsFuncCont_'+feederUUID)).toBeObject();
+		});
+		
+		it("should have a chart container object", function() {
+		expect($('#vsChartCont_'+feederUUID)).toBeObject();
 		});
 	});	
 	
 	describe("timeSeriesView method", function() {
-		var feederUUID = "hcjacmf";
+		var feederUUID = "123456789";
 		
 		beforeEach(function() {
     		createFeeder(feederUUID);
 		});
 		
-		it("should be able to show time series", function() {
-			expect(readSensorData(feederUUID)).toBe(100.0);
+		it("should have a function container object", function() {
+			expect($('#vsFuncCont_'+feederUUID)).toBeObject();
+		});
+		
+		it("should have a chart container object", function() {
+		expect($('#vsChartCont_'+feederUUID)).toBeObject();
 		});
 	});	
 });
-

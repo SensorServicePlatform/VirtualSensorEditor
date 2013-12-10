@@ -202,7 +202,7 @@ jsPlumb.bind("ready", function () {
         ]
     });
 
-    if (Modernizr.localstorage && localStorage.getItem("storageObj") != null) {
+    if (Modernizr.localstorage /* && localStorage.getItem("storageObj") */ != null) {
         recoverFromLocalStorage();
         populateVirtualSensorList();
     }

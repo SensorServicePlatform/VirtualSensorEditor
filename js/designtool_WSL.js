@@ -54,13 +54,10 @@ function initPhysicalSensor() {
 function sensorTimer(sensorType) {
 
     // this tells us if dates are filled
-    var are_dates_given = false;
-
-    if ( $("#date_from").datepicker( "getDate" ) != null && $("#date_to").datepicker( "getDate" ) != null )
+    var is_time_given = false;
+    if ( $("#date_from").datepicker( "getDate" ) != null && $("#date_to").datepicker( "getDate" ) != null ) 
     {
-        console.log($("#date_from_alternate").val());
-        console.log($("#date_to_alternate").val());
-        are_dates_given = true;
+        is_time_given = true;
     }
 
     if (using_fake_data) {
@@ -73,19 +70,22 @@ function sensorTimer(sensorType) {
 
     // this is the list of device_ids set in designtool_PRE.js
     // should we query this?
-    var device_ids = Object.keys(idReadableMapping);
+    //var device_ids = Object.keys(idReadableMapping);
 
     // send a new query to get data per device_id.
-    for(var device_index = 0; device_index < device_ids.length; device_index++)
-    {
-        if(are_dates_given)
+    // for(var device_index = 0; device_index < device_ids.length; device_index++)
+    // {
+
+        if(is_time_given)
         {
-            var urlString = hostname + "/sensors/" + device_ids[device_index] + "/" + $("#date_from_alternate").val() + "/" + $("#date_to_alternate").val() + "/" + sensorType + "/json";
+            var urlString = hostname + "/sensors_in_time_frame/" + $("#date_from_alternate").val() + "T" + $("#time_from").val() + "/" + 
+            $("#date_to_alternate").val() + "T" + $("#time_to").val() + "/" + sensorType + "/json" + "?dateformat=ISO8601";
         }
         else
         {
             var urlString = hostname + "/lastest_readings_from_all_devices/" + sensorType + "/json";
         }
+
         $.get(urlString, function (newData) {
             //if (newData == "no reading found")
             //    return;
@@ -99,6 +99,6 @@ function sensorTimer(sensorType) {
                 globalPhysicalSensorData[deviceID][sensorType]["timestamp"] = jsonData[i]["timestamp"];
             }
         });
-    }
+    //}
 
 }
