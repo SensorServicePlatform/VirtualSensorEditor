@@ -170,9 +170,19 @@ function saveVirtualSensor(editingMode) {
     storageObj["VIRTUAL_SENSORS"][virtualSensorName]["source"] = outputConnections[0].sourceId;
     storageObj["VIRTUAL_SENSORS"][virtualSensorName]["version"] = version;
 
+    $.get(hostname + ':1337/add?name=' + virtualSensorName + '&vs=' + encodeURIComponent(JSON.stringify(storageObj["VIRTUAL_SENSORS"][virtualSensorName])), function (data) {
+        if("OK" == data)
+        {
+            alert("Virtual Sensors stored successfully.");
+        }
+        else
+        {
+            alert("Could not store Virtual Sensors.");
+        }
+    });
+
     persistToLocalStorage();
     populateVirtualSensorList();
-    alert(virtualSensorName + " saved successfully!");
     clearCanvas();
 }
 
@@ -206,16 +216,18 @@ function saveElementAndChildren(id) {
 
 function persistToLocalStorage() {
     if (Modernizr.localstorage) {
+	alert(1);
         localStorage["storageObj"] = JSON.stringify(storageObj);
     }
-
-    //send to node.js
-    //$.get('http://127.0.0.1:1337/?op=def&vsDef=' + encodeURIComponent(JSON.stringify(storageObj)));
 }
 
 function recoverFromLocalStorage() {
     if (Modernizr.localstorage) {
-        storageObj = JSON.parse(localStorage["storageObj"]);
+        $.get(hostname + ":1337/getall", function (data) {
+            localStorage["storageObj"] = data;
+            storageObj = JSON.parse(data);
+            populateVirtualSensorList();
+        });
     }
 }
 
