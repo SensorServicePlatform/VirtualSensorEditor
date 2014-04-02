@@ -37,8 +37,9 @@ sn_visualization.main = (function(){
           for(var key in data){
             var
               offset = now.getTime()-data[key].timestamp,
-              device_id = data[key].device_id,
+              device_id = data[key].sensorName,
               targetCard = $('#dashboardView .deviceCard[data-d_uri='+device_id+']');
+
 
             if(targetCard.length == 0){
               var cardHTML =
@@ -51,9 +52,10 @@ sn_visualization.main = (function(){
             //console.log('#dashboardView .deviceCard[data-d_uri='+device_id+']');
 
             targetCard.removeClass('badBlock avgBlock goodBlock');
-            if(offset > 3*60*1000){ targetCard.addClass('badBlock'); }
-            else if(offset > 15*1000){ targetCard.addClass('avgBlock'); }
-            else { targetCard.addClass('goodBlock'); }
+            //if(offset > 3*60*1000){ targetCard.addClass('badBlock'); }
+            //else if(offset > 15*1000){ targetCard.addClass('avgBlock'); }
+            //else { targetCard.addClass('goodBlock'); }
+            targetCard.addClass('goodBlock')
           }
 
           // Log received data into logView
@@ -69,7 +71,8 @@ sn_visualization.main = (function(){
       );
       pollingWorker.postMessage({
         type: "START",
-        url: "http://einstein.sv.cmu.edu/lastest_readings_from_all_devices/temp/json",
+        //url: "http://einstein.sv.cmu.edu/lastest_readings_from_all_devices/temp/json",
+        url: 'http://einstein.sv.cmu.edu:9000/getLatestReadingsFromAllDevices/fireImpDigitalTemperature/json'
       });
     },
 		buildSensorsObj = function(callback){

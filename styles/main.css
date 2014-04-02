@@ -124,7 +124,7 @@ body {
   box-sizing: border-box; -moz-box-sizing: border-box;
 }
 .deviceCard.hidden { display: none; }
-.deviceCard.goodBlock { border-left: 1em solid steelBlue; }
+.deviceCard.goodBlock { border-left: 1em solid green; }
 .deviceCard.avgBlock { border-left: 1em solid khaki; }
 .deviceCard.badBlock { border-left: 1em solid red; }
 
